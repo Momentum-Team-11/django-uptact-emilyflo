@@ -20,3 +20,14 @@ class Contact(models.Model):
     state = USStateField(null=True, blank=True)
     zip_code = USZipCodeField(null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+class Note(models.Model):
+    text = models.TextField(max_length=1000, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE, related_name="note")
+
+    def __str__(self):
+        return self.text[:20]
